@@ -1,0 +1,10 @@
+.idea
+*.csv
+**/*.csv
+**/*.txt
+*.txt
+*.ipynb
+logs/
+*.mp4
+*.h5
+*.log
