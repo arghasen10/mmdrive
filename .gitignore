@@ -9,3 +9,4 @@ logs/
 *.h5
 *.log
 *_merge_data.py
+*.eps
