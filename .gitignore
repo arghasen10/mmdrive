@@ -12,3 +12,4 @@ logs/
 *.eps
 logger/
 *.svg
+*pkl
