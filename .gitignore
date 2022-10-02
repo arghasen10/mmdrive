@@ -10,3 +10,5 @@ logs/
 *.log
 *_merge_data.py
 *.eps
+logger/
+*.svg
