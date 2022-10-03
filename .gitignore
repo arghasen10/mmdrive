@@ -13,3 +13,4 @@ logs/
 logger/
 *.svg
 *pkl
+*.pdf
