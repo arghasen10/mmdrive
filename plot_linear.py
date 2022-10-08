@@ -60,7 +60,7 @@ activity_df = read_activity()
 mmwave_df = read_mmwave()
 
 merged_df = mmwave_df.merge(activity_df, left_on='datetime', right_on='datetime', how='inner')
-
+# merged_df = pd.read_pickle('merged_dataset.pkl')
 plt.rcParams.update({'font.size': 12})
 plt.rcParams["font.weight"] = "bold"
 plt.rcParams["axes.labelweight"] = "bold"
@@ -73,7 +73,9 @@ doppz = np.array(df1['doppz'].values.tolist())
 fig = plt.figure(figsize=(15, 6))
 
 ax = fig.add_subplot(221)
-map_dict = dict(zip(['Fetching forward', 'Harsh driving', 'Normal driving', 'Picking drops', 'Talking Phone', 'Talking back', 'Talking left', 'Yawning'],
+
+map_dict = dict(zip(['Fetching forward', 'Harsh driving', 'Normal driving', 'Picking drops', 'Talking Phone',
+                     'Talking back', 'Talking left', 'Yawning'],
                     ['orange', 'blue', 'red', 'green', 'indigo', 'gold', 'maroon', 'skyblue']))
 labels = df1['activity'].map(map_dict)
 sum_val = doppz.reshape(-1, 64 * 16).mean(axis=1)
