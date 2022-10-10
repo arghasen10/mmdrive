@@ -6,10 +6,11 @@ import glob
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
-plt.rcParams.update({'font.size': 12})
+plt.rcParams.update({'font.size': 18})
 # plt.rcParams["figure.figsize"] = (10, 7)
 plt.rcParams["font.weight"] = "bold"
 plt.rcParams["axes.labelweight"] = "bold"
+
 
 def process_mmwave(f):
     user, datetime_str = f.split('/')[-1].split('-')
@@ -54,10 +55,14 @@ def read_mmwave():
     print(mmwave_df.values.shape)
     return mmwave_df
 
+
 activity_df = read_activity()
 mmwave_df = read_mmwave()
 merged_df = mmwave_df.merge(activity_df, left_on='datetime', right_on='datetime', how='inner')
-
+merged_df.loc[merged_df["activity"] == "Talking back", "activity"] = "Turning back"
+merged_df.loc[merged_df["activity"] == "Talking Phone", "activity"] = "Using Phone"
+merged_df.loc[merged_df["activity"] == "Harsh driving", "activity"] = "Anomaly in Steering"
+df = merged_df.copy()
 from datetime import datetime, timedelta
 import pandas as pd
 import glob
@@ -76,48 +81,49 @@ for f in files:
             data = l.strip().split(',')
             if len(data) == 9:
                 time_val = int(data[0].split('|')[0]) / 1000000
-                actual_time = datetime.strptime(time.strftime('%Y%m%d%H%M%S', time.localtime(time_val)), '%Y%m%d%H%M%S') + \
+                actual_time = datetime.strptime(time.strftime('%Y%m%d%H%M%S', time.localtime(time_val)),
+                                                '%Y%m%d%H%M%S') + \
                               timedelta(days=14, seconds=-3)
-#                 if pd.to_datetime('2022-09-25 14:23:53') < actual_time < pd.to_datetime('2022-09-25 14:28:22'):
+                #                 if pd.to_datetime('2022-09-25 14:23:53') < actual_time < pd.to_datetime('2022-09-25 14:28:22'):
                 time_then.append(actual_time)
                 plot_imu.append(float(data[4]))
 
-df_imu=pd.DataFrame({'datetime':map(str,time_then),'imu':plot_imu}).groupby('datetime').mean()
+df_imu = pd.DataFrame({'datetime': map(str, time_then), 'imu': plot_imu}).groupby('datetime').mean()
 
-df_user=merged_df[merged_df.User == 'sugandh']
-df_user2=\
-pd.DataFrame(data=[[str(g),np.array(data['noiserp_y'].values.tolist()).mean(),np.array(data['doppz'].values.tolist()).mean(),
-                   data['activity'].values[0]]\
-for g, data in df_user.groupby('datetime')],columns=['datetime','noiserp_y','doppz','act'])
+df_user = merged_df[merged_df.User == 'sugandh']
+df_user2 = \
+    pd.DataFrame(data=[
+        [str(g), np.array(data['noiserp_y'].values.tolist()).mean(), np.array(data['doppz'].values.tolist()).mean(),
+         data['activity'].values[0]] \
+        for g, data in df_user.groupby('datetime')], columns=['datetime', 'noiserp_y', 'doppz', 'act'])
 
-df_final = pd.merge(left=df_imu,right=df_user2,on='datetime')
-map_dict = dict(zip(['Fetching forward', 'Harsh driving', 'Normal driving', 'Picking drops', 'Talking Phone',
-                     'Talking back', 'Talking left', 'Yawning', 'Drinking', 'Nodding'],
+df_final = pd.merge(left=df_imu, right=df_user2, on='datetime')
+map_dict = dict(zip(['Fetching forward', 'Anomaly in Steering', 'Normal driving', 'Picking drops', 'Using Phone',
+                     'Turning back', 'Talking left', 'Yawning', 'Drinking', 'Nodding'],
                     ['orange', 'blue', 'red', 'green', 'indigo', 'gold', 'maroon', 'skyblue', 'yellow', 'purple']))
-df_final['act']=df_final['act'].map(map_dict)
+df_final['act'] = df_final['act'].map(map_dict)
 
-fig = plt.figure(figsize=(12,5))
-ax=fig.add_subplot(311)
+fig = plt.figure(figsize=(12, 5))
+ax = fig.add_subplot(311)
 ax.plot(df_final['imu'].iloc[12:], lw=2)
-ax.vlines(x=331,ymin=-3,ymax=3,color='k',linestyle='--',lw=2)
-ax.annotate("Bump",(332,-2), (342,-2), arrowprops=dict(facecolor='black', width=1))
-ax.set_xlim(207,407)
-ax.set_ylim(-3,3)
+ax.vlines(x=331, ymin=-3, ymax=3, color='k', linestyle='--', lw=2)
+ax.annotate("Bump", (332, -2), (342, -2), arrowprops=dict(facecolor='black', width=1))
+ax.set_xlim(207, 407)
+ax.set_ylim(-3, 3)
 ax.set_ylabel('IMU')
-plt.xticks(np.arange(207, 408,20),labels=map(str,range(0,201,20)))
+plt.xticks(np.arange(207, 408, 20), labels=map(str, range(0, 201, 20)))
 ax.spines['bottom'].set_visible(False)
 ax.set_xticklabels([])
 ax.grid()
 
-
-ax=fig.add_subplot(312)
-ax.scatter(range(df_final.shape[0]),df_final['noiserp_y'],c=df_final['act'].values)
+ax = fig.add_subplot(312)
+ax.scatter(range(df_final.shape[0]), df_final['noiserp_y'], c=df_final['act'].values)
 ax.plot(range(len(df_final['noiserp_y'])), df_final['noiserp_y'], linestyle='--', c='gray')
-ax.vlines(x=324,ymin=32.5,ymax=35.5, color='k',linestyle='--',lw=2)
-ax.set_xlim(200,400)
-ax.set_ylim(32.5,35.5)
+ax.vlines(x=324, ymin=32.5, ymax=35.5, color='k', linestyle='--', lw=2)
+ax.set_xlim(200, 400)
+ax.set_ylim(32.5, 35.5)
 ax.set_ylabel('Mean\nNoise Profile')
-plt.xticks(np.arange(200, 401,20),labels=map(str,range(0,201,20)))
+plt.xticks(np.arange(200, 401, 20), labels=map(str, range(0, 201, 20)))
 ax.spines['bottom'].set_visible(False)
 ax.spines['top'].set_visible(False)
 ax.set_xticklabels([])
@@ -125,42 +131,42 @@ ax.grid()
 pathes = [mpatches.Patch(color=c, label=v) for v, c in map_dict.items()]
 ax.legend(handles=pathes, ncol=5, bbox_to_anchor=(1., 3))
 
-ax=fig.add_subplot(313)
-ax.scatter(range(df_final.shape[0]),df_final['doppz'],c=df_final['act'].values)
+ax = fig.add_subplot(313)
+ax.scatter(range(df_final.shape[0]), df_final['doppz'], c=df_final['act'].values)
 ax.plot(range(len(df_final['doppz'])), df_final['doppz'], linestyle='--', c='gray')
-ax.vlines(x=324,ymin=2200,ymax=2350, color='k',linestyle='--',lw=2)
+ax.vlines(x=324, ymin=2200, ymax=2350, color='k', linestyle='--', lw=2)
 
-ax.set_xlim(200,400)
-ax.set_ylim(2200,2350)
+ax.set_xlim(200, 400)
+ax.set_ylim(2200, 2350)
 ax.set_ylabel('Mean\nRange-doppler')
-plt.xticks(np.arange(200, 401,20),labels=map(str,range(0,201,20)))
+plt.xticks(np.arange(200, 401, 20), labels=map(str, range(0, 201, 20)))
 ax.spines['top'].set_visible(False)
 plt.tight_layout()
 ax.set_xlabel('Time(s)')
 ax.grid()
 plt.show()
 
-fig = plt.figure(figsize=(12,5))
-ax=fig.add_subplot(311)
+fig = plt.figure(figsize=(12, 5))
+ax = fig.add_subplot(311)
 ax.plot(df_final['imu'].iloc[12:], lw=2)
-ax.vlines(x=742,ymin=-3,ymax=3,color='k',linestyle='--',lw=2)
-ax.annotate("Bump",(743,-2), xytext=(750,-2.1), arrowprops=dict(facecolor='black', width=2))
-ax.set_xlim(572,753)
-ax.set_ylim(-3,3)
+ax.vlines(x=742, ymin=-3, ymax=3, color='k', linestyle='--', lw=2)
+ax.annotate("Bump", (743, -2), xytext=(750, -2.1), arrowprops=dict(facecolor='black', width=2))
+ax.set_xlim(572, 753)
+ax.set_ylim(-3, 3)
 ax.set_ylabel('IMU')
-plt.xticks(np.arange(572,753,20),labels=map(str,range(0,181,20)))
+plt.xticks(np.arange(572, 753, 20), labels=map(str, range(0, 181, 20)))
 ax.spines['bottom'].set_visible(False)
 ax.set_xticklabels([])
 ax.grid()
 
-ax=fig.add_subplot(312)
-ax.scatter(range(df_final.shape[0]),df_final['noiserp_y'],c=df_final['act'].values)
+ax = fig.add_subplot(312)
+ax.scatter(range(df_final.shape[0]), df_final['noiserp_y'], c=df_final['act'].values)
 ax.plot(range(len(df_final['noiserp_y'])), df_final['noiserp_y'], linestyle='--', c='gray')
-ax.vlines(x=720,ymin=32.5,ymax=38, color='k',linestyle='--',lw=2)
-ax.set_xlim(550,731)
-ax.set_ylim(32.5,38)
+ax.vlines(x=720, ymin=32.5, ymax=38, color='k', linestyle='--', lw=2)
+ax.set_xlim(550, 731)
+ax.set_ylim(32.5, 38)
 ax.set_ylabel('Mean\nNoise Profile')
-plt.xticks(np.arange(550, 731,20),labels=map(str,range(0,181,20)))
+plt.xticks(np.arange(550, 731, 20), labels=map(str, range(0, 181, 20)))
 ax.spines['bottom'].set_visible(False)
 ax.spines['top'].set_visible(False)
 ax.set_xticklabels([])
@@ -168,15 +174,15 @@ pathes = [mpatches.Patch(color=c, label=v) for v, c in map_dict.items()]
 ax.legend(handles=pathes, ncol=5, bbox_to_anchor=(1., 3))
 ax.grid()
 
-ax=fig.add_subplot(313)
-ax.scatter(range(df_final.shape[0]),df_final['doppz'],c=df_final['act'].values)
+ax = fig.add_subplot(313)
+ax.scatter(range(df_final.shape[0]), df_final['doppz'], c=df_final['act'].values)
 ax.plot(range(len(df_final['doppz'])), df_final['doppz'], linestyle='--', c='gray')
-ax.vlines(x=720,ymin=2200,ymax=2450, color='k',linestyle='--',lw=2)
+ax.vlines(x=720, ymin=2200, ymax=2450, color='k', linestyle='--', lw=2)
 
-ax.set_xlim(550,731)
-ax.set_ylim(2200,2450)
+ax.set_xlim(550, 731)
+ax.set_ylim(2200, 2450)
 ax.set_ylabel('Mean\nRange-doppler')
-plt.xticks(np.arange(550, 731,20),labels=map(str,range(0,181,20)))
+plt.xticks(np.arange(550, 731, 20), labels=map(str, range(0, 181, 20)))
 ax.spines['top'].set_visible(False)
 plt.tight_layout()
 ax.set_xlabel('Time(s)')
