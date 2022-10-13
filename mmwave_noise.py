@@ -9,7 +9,7 @@ import statsmodels.api as sm
 # import matplotlib.pyplot as plt
 # import numpy as np
 # import json
-# files = glob.glob('~/Desktop/dangerous_driving_a/data25_09_22/sugandh_25_09_22/mmwave_data/*.txt')
+# files = glob.glob('~/Desktop/dangerous_driving_a/data25_09_22/s*_25_09_22/mmwave_data/*.txt')
 # files.sort()
 # plot_noise = []
 # time_then = []

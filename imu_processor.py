@@ -15,7 +15,7 @@ t = np.arange(1,T+1)/T
 freqs = 2 * np.pi * (t-0.5-fs) / fs
 
 
-files = glob.glob('~/Desktop/dangerous_driving_a/data25_09_22/sugandh_25_09_22/nexar_data/*B.dat')
+files = glob.glob('~/Desktop/dangerous_driving_a/data25_09_22/s*_25_09_22/nexar_data/*B.dat')
 files.sort()
 plot_imu = []
 time_then = []
@@ -49,7 +49,7 @@ tol = 1e-7
 
 u, u_hat, omega = VMD(plot_imu, alpha, tau, K, DC, init, tol)
 
-# files = glob.glob('~/Desktop/dangerous_driving_a/data25_09_22/sugandh_25_09_22/mmwave_data/*.txt')
+# files = glob.glob('~/Desktop/dangerous_driving_a/data25_09_22/s*_25_09_22/mmwave_data/*.txt')
 # files.sort()
 # plot_noise = []
 # time_then = []
