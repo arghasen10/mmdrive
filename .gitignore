@@ -14,3 +14,7 @@ logger/
 *.svg
 *pkl
 *.pdf
+*.xdp*
+Evaluation
+*.json
+
