@@ -12,7 +12,6 @@ logs/
 *.eps
 logger/
 *.svg
-*pkl
 *.pdf
 *.xdp*
 Evaluation
@@ -20,3 +19,5 @@ Evaluation
 results_plot/
 results/
 power_consumption/
+res_plots/
+merged_dataset.pkl
