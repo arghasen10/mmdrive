@@ -17,4 +17,5 @@ logger/
 *.xdp*
 Evaluation
 *.json
-
+results_plot/
+results/
