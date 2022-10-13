@@ -19,3 +19,4 @@ Evaluation
 *.json
 results_plot/
 results/
+power_consumption/
