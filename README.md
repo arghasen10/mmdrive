@@ -7,7 +7,6 @@ average accuracy of 97(±2)%.
 ## Installation:
 
 To install use the following commands.
-FIrst clone this repository in your local machine.
 ```bash
 git clone <annonymous-url>
 pip install -r requirements.txt
@@ -25,5 +24,6 @@ mmdrive
 └── acoustic_fmcw
 └── results
 └── dataset
+    └── dataset_pub.pkl
 └── mmwave_demo_visualizer
 ```
