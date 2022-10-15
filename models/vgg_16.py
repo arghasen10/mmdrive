@@ -7,7 +7,7 @@ from sklearn.metrics import confusion_matrix, f1_score, classification_report
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.applications.vgg16 import VGG16
 from tensorflow.keras.applications.vgg16 import preprocess_input
-from model_tuned import convert_to_neumeric, split_dataset, scale, get_df
+from helper import convert_to_neumeric, split_dataset, scale, get_df
 
 
 def StackFrames(doppz, labels, frame_stack=4):
