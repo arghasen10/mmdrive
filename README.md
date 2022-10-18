@@ -23,8 +23,22 @@ mmdrive
     └── vgg_16.py
     └── helper.py
 └── acoustic_fmcw
-└── results
+    └── Android
+    └── post_process
+    └── RF_Classifier
+    └── README.md
 └── dataset
     └── dataset_pub.pkl
 └── mmwave_demo_visualizer
+    └── README.md
 ```
+
+## Description 
+
+We have provided a sample subset of our dataset in the **dataset** directory. 
+
+To run the Fused-CNN classifier or the other baselines check **models** directory.
+
+In **mmwave_demo_visualizer** directory we have provided the instructions to run the demo visualizer for data collection as well as real time data visualization. This implementation is made by Texas Instruments and we have slightly modified the version to enable data collection and data annotations.
+
+In **acoustic_fmcw** directory we have provided the source code for the acoustic range-doppler collection. 
