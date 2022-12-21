@@ -8,7 +8,7 @@ average accuracy of 97(±2)%.
 
 To install use the following commands.
 ```bash
-git clone <annonymous-url>
+git clone https://github.com/arghasen10/mmdrive.git
 pip install -r requirements.txt
 ```
 
