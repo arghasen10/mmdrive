@@ -1,15 +1,7 @@
 # <i>mmdrive</i> 
 
-<table  cellspacing="0" cellpadding="0" style="border:0px;">
-<tr>
-<td>
-<img align="right"  src="hardwaresetup.png" width="70%"/>
-</td>
-<td>
-<img align="left" src="framework.png" width="70%"/>
-</td>
-</tr>
-</table>
+|<img align="right"  src="hardwaresetup.png" width="70%"/>   |  <img align="left" src="framework.png" width="70%"/> |
+|---|---|
 
 In this work we explore the feasibility of purely using mmWave radars to detect dangerous driving behaviors. We then develop a novel Fused-CNN model to detect dangerous driving instances from regular driving and classify 9 different
 dangerous driving actions. Through extensive  experiments with 5 volunteer drivers in real driving environments, we observe that our system can distinguish dangerous driving actions with an
