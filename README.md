@@ -1,5 +1,18 @@
 # <i>mmdrive</i> 
 
+<style>
+table {
+    border-collapse: collapse;
+}
+table, th, td {
+   border: 0px solid black;
+}
+blockquote {
+    border-left: solid blue;
+    padding-left: 10px;
+}
+</style>
+
 |<img align="right"  src="hardwaresetup.png" width="70%"/>   |  <img align="left" src="framework.png" width="70%"/> |
 |---|---|
 
