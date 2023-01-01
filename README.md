@@ -1,12 +1,12 @@
 # <i>mmdrive</i> 
 
-<table>
+<table  cellspacing="0" cellpadding="0" style="border: none;">
 <tr>
 <td>
-<img style="float: right;"  src="hardwaresetup.png" width="70%"/>
+<img align="right"  src="hardwaresetup.png" width="70%"/>
 </td>
 <td>
-<img style="float: left;" src="framework.png" width="70%"/>
+<img align="left" src="framework.png" width="70%"/>
 </td>
 </tr>
 </table>
