@@ -1,6 +1,6 @@
 # <i>mmdrive</i> 
 
-<table  cellspacing="0" cellpadding="0" style="border: none;">
+<table  cellspacing="0" cellpadding="0" border="0">
 <tr>
 <td>
 <img align="right"  src="hardwaresetup.png" width="70%"/>
