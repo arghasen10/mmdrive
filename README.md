@@ -1,4 +1,4 @@
-# <i>mmdrive</i> 
+# <i>mmDrive</i> 
 
 |<img align="right"  src="hardwaresetup.png" width="70%"/>   |  <img align="left" src="framework.png" width="70%"/> |
 |---|---|
@@ -48,5 +48,17 @@ In **acoustic_fmcw** directory we have provided the source code for the acoustic
 
 <hr>
 
+
+# Reference
+To refer <i>mmDrive</i> framework or the dataset, please cite the following work.
+
+BibTex Reference:
+```
+@article{sen2023mmdrive,
+  title={mmDrive: mmWave Sensing for Live Monitoring and On-Device Inference of Dangerous Driving},
+  author={Sen, Argha and Mandal, Avijit and Karmakar, Prasenjit and Das, Anirban and Chakraborty, Sandip},
+  journal={arXiv preprint arXiv:2301.08188},
+  year={2023}
+}
 For questions and general feedback, contact Argha Sen (arghasen10@gmail.com).
 
