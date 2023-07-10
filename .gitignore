@@ -23,3 +23,5 @@ res_plots/
 merged_dataset.pkl
 junky
 notebook_files
+**/*__pycache__
+real_time_demo_data_sugandh/*
