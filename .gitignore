@@ -25,3 +25,5 @@ junky
 notebook_files
 **/*__pycache__
 real_time_demo_data_sugandh/*
+**/*.pkl
+
