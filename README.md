@@ -54,11 +54,13 @@ To refer <i>mmDrive</i> framework or the dataset, please cite the following work
 
 BibTex Reference:
 ```
-@article{sen2023mmdrive,
+@inproceedings{sen2023mmdrive,
   title={mmDrive: mmWave Sensing for Live Monitoring and On-Device Inference of Dangerous Driving},
   author={Sen, Argha and Mandal, Avijit and Karmakar, Prasenjit and Das, Anirban and Chakraborty, Sandip},
-  journal={arXiv preprint arXiv:2301.08188},
-  year={2023}
+  booktitle={2023 IEEE International Conference on Pervasive Computing and Communications (PerCom)},
+  pages={2--11},
+  year={2023},
+  organization={IEEE}
 }
 ```
 For questions and general feedback, contact Argha Sen (arghasen10@gmail.com).
