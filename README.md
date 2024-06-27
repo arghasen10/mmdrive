@@ -62,6 +62,16 @@ BibTex Reference:
   year={2023},
   organization={IEEE}
 }
+
+@article{sen2024passive,
+  title={Passive Monitoring of Dangerous Driving Behaviors Using mmWave Radar},
+  author={Sen, Argha and Mandal, Avijit and Karmakar, Prasenjit and Das, Anirban and Chakraborty, Sandip},
+  journal={Pervasive and Mobile Computing},
+  volume={103},
+  pages={101949},
+  year={2024},
+  publisher={Elsevier}
+}
 ```
 For questions and general feedback, contact Argha Sen (arghasen10@gmail.com).
 
